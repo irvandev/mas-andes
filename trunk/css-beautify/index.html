@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tool CSS Beautify - [BMA]</title>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="assets/thirdparty/codemirror.js" type="text/javascript"></script>
+    <script src="assets/thirdparty/css.js" type="text/javascript"></script>
+    <script src="assets/format.js" type="text/javascript"></script>
+    <script src="cssbeautify.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="assets/thirdparty/codemirror.css"/>
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.min.css">	
+</head>
+<body>
+	<div class="extra">
+        	<div class="row-top">
+            	<div class="main">
+                	<div class="wrapper">
+                    	<h1><a href="index.html"><i class="fa fa-cog fa-spin"></i> Tool CSS Beautify - [BMA]</a></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-row">
+            	<div class="menu-bg">
+                    <div class="main">
+                        <nav class="indent-left">
+                            <ul class="menu wrapper">
+                                <li class="active"><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+                                <li><a href="company.html"><i class="fa fa-user"></i> About</a></li>
+                                <li><a href="services.html"><i class="fa fa-phone"></i> Contact</a></li>
+                                <li><a href="projects.html"><i class="fa fa-paperclip"></i> Disclaimer</a></li>
+                                <li><a href="contact.html"><i class="fa fa-sitemap"></i> Sitemap</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="row-bot">
+<div class="container">
+    <div class="raw">
+        <h3>Type any unformatted CSS:</h3>
+        <textarea id="raw" rows="22" autofocus="autofocus" spellcheck="false" onChange='format()' onKeyDown='format()'>menu{color:red} navigation{background-color:#333 /* darkgrey */}</textarea>
+    </div>
+
+    <div class="formatted">
+        <h3>Beautified CSS:</h3>
+        <textarea id="beautified" rows="22" readonly></textarea>
+    </div>
+
+    <div class="options">
+        <h3>Options:</h3>
+        <p>Indent with<br>
+        <label><input checked type="radio" name="indent" id="fourspaces" value="fourspaces" onChange='format()'>4 spaces</label><br>
+        <label><input type="radio" name="indent" id="twospaces" value="twospaces" onChange='format()'>2 spaces</label><br>
+        <label><input type="radio" name="indent" id="tab" value="tab" onChange='format()'>tab</label>
+        </p>
+        <p>Open curly brace:<br>
+        <label><input checked type="radio" name="openbrace" id="openbrace-end-of-line" onChange='format()'>end of line</label><br>
+        <label><input type="radio" name="openbrace" id="openbrace-separate-line" onChange='format()'>separate line</label>
+        </p>
+        <p><label><input checked type="checkbox" name="autosemicolon" id="autosemicolon" onChange='format()'>Automatic semicolon</label></p>
+    </div>
+</div>
+            </div>
+<script type='text/javascript'>
+var _gaq = _gaq || [];
+_gaq.push([&#39;_setAccount&#39;, &#39;UA-29313206-1&#39;]);
+_gaq.push([&#39;_trackPageview&#39;]);
+(function() {
+var ga = document.createElement(&#39;script&#39;); ga.type = &#39;text/javascript&#39;; ga.async = true;
+ga.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
+var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>
