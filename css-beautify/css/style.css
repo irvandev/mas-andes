@@ -1,0 +1,184 @@
+/* Getting the new tags to behave */
+article, aside, audio, canvas, command, datalist, details, embed, figcaption, figure, footer, header, hgroup, keygen, meter, nav, output, progress, section, source, video {display:block}
+mark, rp, rt, ruby, summary, time {display:inline}
+/* Global properties ======================================================== */
+html {width:100%}
+body {font-family:Arial, Helvetica, sans-serif; font-size:100%; color:#333; width:100%; background:#f1f1f1}
+.main {
+width:960px; 	
+padding:0;
+margin:0 auto;
+font-size:0.8125em;
+line-height:1.3846em;
+}
+a {color:#39b9d6; outline:none}
+a:hover {text-decoration:none}
+.wrapper {width:100%; overflow:hidden; position:relative}
+p {margin-bottom:18px}
+.menu li a,
+.list-1 li a,
+.list-2 li a,
+.link,
+.button,
+h1 a {text-decoration:none}	
+.row-top {
+width:100%;
+height:100px;
+background:#131313;
+overflow:hidden;
+}
+h1 {
+padding:0;
+line-height:100px;	
+position:relative;
+float:left;
+}
+h1 a {
+display:block; 
+font-size:48px;transition:all .5s ease-in-out
+}
+h1 a:hover{color:#fff}
+/***** menu *****/
+.menu-row {
+width:100%;
+background:url(../images/menu-row-tail.gif) center top repeat-x #178fbe;
+}
+.menu-bg {
+width:100%;
+background:url(../images/menu-bg.jpg) center top no-repeat;
+box-shadow:0 0 10px #333;
+}
+.menu {
+padding:0 0 0 0; 
+background:url(../images/menu-spacer.gif) left top no-repeat;
+}
+.menu li {
+float:left; 
+position:relative;
+background:url(../images/menu-spacer.gif) right top no-repeat;
+padding-right:2px;
+}
+.menu li a {
+display:block; 
+font-size:18px; 
+line-height:3em; 
+width:189px;
+padding:8px 0 8px;
+text-align:center;
+color:#fff; 
+text-transform:uppercase; 
+letter-spacing:-1px;
+}
+.menu i{line-height:3em;}
+.menu li.active a,
+.menu > li > a:hover {color:#000}
+.row-bot {
+width:100%;
+}
+/*********************************content*************************************/
+#content {
+width:100%; 
+border-top:1px solid #fff;
+background:#f1f1f1;
+padding:0;
+position:relative;
+z-index:1;
+}
+#page1 #content {border-top:none; background:none; padding:43px 0 60px}
+h3 {
+font-size:26px; 
+line-height:2em; 
+color:#333;
+margin-bottom:3px;
+}
+h4 {
+font-size:17px; 
+line-height:1.2em; 
+color:#39b9d6;
+text-transform:uppercase;
+}
+h4 em {
+display:block;
+color:#333;
+text-transform:none;
+}
+h4 strong {
+display:block;
+margin-top:-3px;
+}
+h6 {color:#000}
+.link:hover {text-decoration:underline} 
+dl span {float:left; width:88px}
+/*********extra***********/
+.extra {
+min-height:100%;
+height:100%; 
+margin: 0 auto; 
+position:relative;
+overflow:hidden;
+} 
+html, body {height:100%}
+textarea {
+font-family: Inconsolata, Monaco, Consolas, "Lucida Console", monospace;
+font-size: 14px;
+color: #555;
+width: 340px;
+padding: 7px;
+-webkit-appearance: none;
+outline: 0;
+border: 1px solid #bbb;
+}
+.container {
+margin: 20px auto 0;
+width: 960px;
+}
+.container .raw {
+width: 380px;
+display: inline;
+float: left;
+margin-right: 10px;
+}
+.container .raw textarea {
+box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+transition: border linear 0.25s, box-shadow linear 0.25s;
+-webkit-transition: border linear 0.25s, box-shadow linear 0.25s;
+-moz-transition: border linear 0.25s, box-shadow linear 0.25s;
+-o-transition: border linear 0.25s, box-shadow linear 0.25s;
+}
+.container .raw textarea:focus {
+border-color: rgba(60, 200, 1, 0.8);
+box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(60, 200, 1, 0.4);
+-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(60, 200, 1, 0.4);
+-moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(60, 200, 1, 0.4);
+}
+.container .formatted {
+width: 380px;
+display: inline;
+float: left;
+margin-right: 10px;
+}
+.container .formatted textarea {
+color: #000;
+}
+.container .options {
+width: 140px;
+display: inline;
+float: left;
+margin-right: 10px;
+font-size:13px;
+}
+.container .options input {
+margin: 5px 5px 5px 0px;
+}
+.container .options input[type=radio] {
+}
+.CodeMirror {
+padding: 0;
+border: 1px solid #bbb;
+background:#fff;
+}
+.CodeMirror-scroll {
+height: 320px;
+}
