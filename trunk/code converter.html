@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Parse HTML</title>
+<style type="text/css">
+body{background:#333;font:normal 12px Consolas,Sans-Serif;color:#fff;padding:10px}
+p{margin-top:20px}
+code{color:#1E90FF;font:normal 12px Consolas,Sans-Serif;}
+#parse-html{border:2px solid #1E90FF;width:95%;height:200px;display:block;background:#f5f5f5;color:#000;font:normal 12px Consolas,Sans-Serif;margin:10px auto;padding:5px}
+.button_area{text-align:center;margin:0 auto}
+button,button[disabled]:active{background:#1E90FF;font:bold 12px Arial,Sans-Serif;color:#fff;border:none;cursor:pointer;padding:5px 10px}
+button:active,button:hover{opacity:.7}
+button[disabled],button[disabled]:active{opacity:0.4;cursor:default}
+#opt1,#opt2,#opt3,#opt4,#opt5{display:inline-block;vertical-align:middle;border:none;outline:none;margin:0 10px 0 0}
+</style>
+</head>
+<body>
+<textarea spellcheck="false" id="parse-html" placeholder="Enter your code..."></textarea>
+<div class="button_area">
+<button id="bt-parse" onclick="cdConvert();this.disabled = true;">Convert</button>
+<button onclick="cdClear();">Reset</button>
+</div>
+<p>
+<input checked="true" id="opt1" type="checkbox">Convert <code>&amp;</code> to <code>&amp;amp;</code><br>
+<input id="opt2" type="checkbox">Convert <code>'</code> to <code>&amp;#039;</code><br>
+<input id="opt3" type="checkbox">Convert <code>"</code> to <code>&amp;quot;</code><br>
+<input checked="true" id="opt4" type="checkbox">Convert <code>&lt;</code> to <code>&amp;lt;</code><br>
+<input checked="true" id="opt5" type="checkbox">Convert <code>&gt;</code> to <code>&amp;gt;</code>
+</p>
+<script type="text/javascript">
+function cdClear() {
+var wtarea = document.getElementById('parse-html');
+wtarea.value = '';
+wtarea.focus();
+document.getElementById('bt-parse').disabled = false;
+}
+function cdConvert() {
+var ctarea = document.getElementById('parse-html'),
+cv = ctarea.value,
+opt1 = document.getElementById('opt1'),
+opt2 = document.getElementById('opt2'),
+opt3 = document.getElementById('opt3'),
+opt4 = document.getElementById('opt4'),
+opt5 = document.getElementById('opt5');
+cv = cv.replace(/\t/g, "    ");
+if (opt1.checked) cv = cv.replace(/&/g, "&amp;");
+if (opt2.checked) cv = cv.replace(/'/g, "&#039;");
+if (opt3.checked) cv = cv.replace(/"/g, "&quot;");
+if (opt4.checked) cv = cv.replace(/</g, "&lt;");
+if (opt5.checked) cv = cv.replace(/>/g, "&gt;");
+if (cv.lastIndexOf('\n') != -1 || cv.length > 40) {
+cv = cv.replace(/^/, "<i rel=\"pre\">");
+} else {
+cv = cv.replace(/^/, "<i rel=\"code\">");
+}
+cv = cv.replace(/$/, "</i>");
+ctarea.value = cv;
+ctarea.focus();
+ctarea.select();
+};
+</script>
+</body>
+</html>
