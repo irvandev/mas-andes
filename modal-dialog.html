@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<meta content='text/html;charset=UTF-8' http-equiv='Content-Type'/>
+<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0' name='viewport'/>
+<link href='https://plus.google.com/104093787575230359634' rel='author'/>
+<meta content='eX4aetTb1bRMfPFenBkl0DNG0nVF8c4j_EAsagbcrXE' name='google-site-verification'/>
+<meta content='CED76A8C706DF43769EF018E0DAE616A' name='msvalidate.01'/>
+<title>Example Modal Dialog</title>
+<meta content='Example Effect Modal Dialog' name='description'/>
+<meta content='modal dialog,modal window,lightbox,efek modal dialog,efek modal window,efek lightbox' name='keywords'/>
+<style>
+*{margin:0;padding:0}
+html,body{background:#1abc9c}
+body{font:13px/1.231 arial,helvetica,clean,sans-serif}
+h1,h1{font-family:Yanone Kaffeesatz,sans-serif;font-weight:400}
+#wrapper{width:780px;background:#eeeef4;margin:0 auto;display:block;position:relative}
+#header,#footer{width:100%;background:#34495E;overflow:hidden;margin:0 auto;padding:10px 0}
+#footer a{font-size:16px;color:#fff;text-decoration:none}
+#footer a:hover{color:#1ABC9C}
+#footer .left,#footer .right{width:100%}
+#footer .left p{float:left;padding-left:10px}
+#footer .right p{float:right;padding-right:10px}
+#header h1{font-size:48px;text-align:center}
+#container{width:95%;margin:auto;padding-bottom:2%}
+h1{font-size:116%;color:#fff;background:#34495E;margin:0;padding:4px 8px 5px}
+h2{clear:left;font-size:20px;color:#fff;background:#34495E;margin:1em 0;padding:10px}
+pre,blockquote{display:block;clear:both;font:12px/15px Consolas,sans-serif;background:#fff;color:#222;border:1px solid #27ae60;overflow:auto;word-wrap:normal;position:relative;margin:10px 0;padding:10px;text-align:left!impotant}
+pre[data-codetype]{padding:40px 5px 5px}
+pre[data-codetype]:before{content:attr(data-codetype);display:block;position:absolute;top:0;right:0;left:0;background-color:#95a5a6;font:normal 16px/20px Yanone Kaffeesatz,sans-serif;color:#fff;padding:7px}
+pre[data-codetype=HTML]{color:#27ae60;border-color:#27ae60}
+pre[data-codetype=HTML]:before{background:#27ae60}
+blockquote{color:#222}
+button,.md-modal input[type=button]{border:none;background:#c0392b;color:#fff;font-family:Arial,sans-serif;font-size:1em;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:inline-block;border-radius:2px;margin:3px 2px;padding:.6em 1.2em}
+button:hover,.md-modal input[type=button]:hover{background:#d00}
+.md-modal input[type=text],.md-modal input[type=password]{width:95%;background:#f1f1f1;color:#222;border:1px solid #5499C6;outline:none;margin:0 0 10px;padding:10px}
+.md-modal textarea{width:96%;background:#f1f1f1;border:1px solid #5499C6;outline:none;overflow:hidden;height:150px;color:#222;margin:0 0 10px;padding:7px}
+
+/* General style modal dialog */
+.md-perspective,.md-perspective body{height:100%;overflow:hidden}
+.md-perspective body{background:#222;-webkit-perspective:600px;-moz-perspective:600px;perspective:600px}
+.md-modal{position:fixed;top:50%;left:50%;width:50%;max-width:630px;min-width:320px;height:auto;z-index:2000;visibility:hidden;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform:translateX(-50%) translateY(-50%);-moz-transform:translateX(-50%) translateY(-50%);-ms-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%)}
+.md-show{visibility:visible}
+.md-overlay{position:fixed;width:100%;height:100%;visibility:hidden;top:0;left:0;z-index:1000;opacity:0;background:rgba(0,0,0,0.8);-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s}
+.md-show ~ .md-overlay{opacity:1;visibility:visible}
+/* Content style */
+.md-content{color:#222;background:#fff;position:relative;border-radius:3px;margin:0 auto}
+.md-content h3{position:relative;font-size:2.4em;font-weight:300;opacity:0.8;background:#297fb8;color:#fff;border-radius:3px 3px 0 0;margin:0;padding:.4em}
+.md-content h3 a{position:absolute;right:15px;top:12px;color:#fff;cursor:pointer}
+.md-content h3 a:hover{color:#34495E}
+.md-content > div{font-weight:300;font-size:1.15em;margin:0;padding:15px 40px 30px}
+.md-content > div p{margin:0;padding:10px 0}
+.md-content > div ul{margin:0;padding:0 0 30px 20px}
+.md-content > div ul li{padding:5px 0}
+.md-content button{display:block;font-size:.8em;margin:0 auto}
+/* Effect 1: Fade in and scale up */
+.md-effect-1 .md-content{-webkit-transform:scale(0.7);-moz-transform:scale(0.7);-ms-transform:scale(0.7);transform:scale(0.7);opacity:0;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s}
+.md-show.md-effect-1 .md-content{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);transform:scale(1);opacity:1}
+/* Effect 2: Slide from the right */
+.md-effect-2 .md-content{-webkit-transform:translateX(20%);-moz-transform:translateX(20%);-ms-transform:translateX(20%);transform:translateX(20%);opacity:0;-webkit-transition:all .3s cubic-bezier(0.25,0.5,0.5,0.9);-moz-transition:all .3s cubic-bezier(0.25,0.5,0.5,0.9);transition:all .3s cubic-bezier(0.25,0.5,0.5,0.9)}
+.md-show.md-effect-2 .md-content{-webkit-transform:translateX(0);-moz-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);opacity:1}
+/* Effect 3: Slide from the bottom */
+.md-effect-3 .md-content{-webkit-transform:translateY(20%);-moz-transform:translateY(20%);-ms-transform:translateY(20%);transform:translateY(20%);opacity:0;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s}
+.md-show.md-effect-3 .md-content{-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0);opacity:1}
+/* Effect 4: Newspaper */
+.md-effect-4 .md-content{-webkit-transform:scale(0) rotate(720deg);-moz-transform:scale(0) rotate(720deg);-ms-transform:scale(0) rotate(720deg);transform:scale(0) rotate(720deg);opacity:0}
+.md-show.md-effect-4 ~ .md-overlay,.md-effect-4 .md-content{-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s}
+.md-show.md-effect-4 .md-content{-webkit-transform:scale(1) rotate(0deg);-moz-transform:scale(1) rotate(0deg);-ms-transform:scale(1) rotate(0deg);transform:scale(1) rotate(0deg);opacity:1}
+/* Effect 5: fall */
+.md-effect-5.md-modal{-webkit-perspective:1300px;-moz-perspective:1300px;perspective:1300px}
+.md-effect-5 .md-content{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:translateZ(600px) rotateX(20deg);-moz-transform:translateZ(600px) rotateX(20deg);-ms-transform:translateZ(600px) rotateX(20deg);transform:translateZ(600px) rotateX(20deg);opacity:0}
+.md-show.md-effect-5 .md-content{-webkit-transition:all .3s ease-in;-moz-transition:all .3s ease-in;transition:all .3s ease-in;-webkit-transform:translateZ(0px) rotateX(0deg);-moz-transform:translateZ(0px) rotateX(0deg);-ms-transform:translateZ(0px) rotateX(0deg);transform:translateZ(0px) rotateX(0deg);opacity:1}
+/* Effect 6: side fall */
+.md-effect-6.md-modal{-webkit-perspective:1300px;-moz-perspective:1300px;perspective:1300px}
+.md-effect-6 .md-content{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:translate(30%) translateZ(600px) rotate(10deg);-moz-transform:translate(30%) translateZ(600px) rotate(10deg);-ms-transform:translate(30%) translateZ(600px) rotate(10deg);transform:translate(30%) translateZ(600px) rotate(10deg);opacity:0}
+.md-show.md-effect-6 .md-content{-webkit-transition:all .3s ease-in;-moz-transition:all .3s ease-in;transition:all .3s ease-in;-webkit-transform:translate(0%) translateZ(0) rotate(0deg);-moz-transform:translate(0%) translateZ(0) rotate(0deg);-ms-transform:translate(0%) translateZ(0) rotate(0deg);transform:translate(0%) translateZ(0) rotate(0deg);opacity:1}
+/* Effect 7:  slide and stick to top */
+.md-effect-7{top:0;-webkit-transform:translateX(-50%);-moz-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%)}
+.md-effect-7 .md-content{-webkit-transform:translateY(-200%);-moz-transform:translateY(-200%);-ms-transform:translateY(-200%);transform:translateY(-200%);-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s;opacity:0}
+.md-show.md-effect-7 .md-content{-webkit-transform:translateY(0%);-moz-transform:translateY(0%);-ms-transform:translateY(0%);transform:translateY(0%);border-radius:0 0 3px 3px;opacity:1}
+/* Effect 8: 3D flip horizontal */
+.md-effect-8.md-modal{-webkit-perspective:1300px;-moz-perspective:1300px;perspective:1300px}
+.md-effect-8 .md-content{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:rotateY(-70deg);-moz-transform:rotateY(-70deg);-ms-transform:rotateY(-70deg);transform:rotateY(-70deg);-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s;opacity:0}
+.md-show.md-effect-8 .md-content{-webkit-transform:rotateY(0deg);-moz-transform:rotateY(0deg);-ms-transform:rotateY(0deg);transform:rotateY(0deg);opacity:1}
+/* Effect 9: 3D flip vertical */
+.md-effect-9.md-modal{-webkit-perspective:1300px;-moz-perspective:1300px;perspective:1300px}
+.md-effect-9 .md-content{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:rotateX(-70deg);-moz-transform:rotateX(-70deg);-ms-transform:rotateX(-70deg);transform:rotateX(-70deg);-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s;opacity:0}
+.md-show.md-effect-9 .md-content{-webkit-transform:rotateX(0deg);-moz-transform:rotateX(0deg);-ms-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}
+/* Effect 10: 3D sign */
+.md-effect-10.md-modal{-webkit-perspective:1300px;-moz-perspective:1300px;perspective:1300px}
+.md-effect-10 .md-content{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:rotateX(-60deg);-moz-transform:rotateX(-60deg);-ms-transform:rotateX(-60deg);transform:rotateX(-60deg);-webkit-transform-origin:50% 0;-moz-transform-origin:50% 0;transform-origin:50% 0;opacity:0;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s}
+.md-show.md-effect-10 .md-content{-webkit-transform:rotateX(0deg);-moz-transform:rotateX(0deg);-ms-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}
+/* Effect 11: Super scaled */
+.md-effect-11 .md-content{-webkit-transform:scale(2);-moz-transform:scale(2);-ms-transform:scale(2);transform:scale(2);opacity:0;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s}
+.md-show.md-effect-11 .md-content{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);transform:scale(1);opacity:1}
+/* Effect 12:  Just me */
+.md-effect-12 .md-content{-webkit-transform:scale(0.8);-moz-transform:scale(0.8);-ms-transform:scale(0.8);transform:scale(0.8);opacity:0;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s}
+.md-show.md-effect-12 ~ .md-overlay{background:#e74c3c}
+.md-effect-12 .md-content h3,.md-effect-12 .md-content{background:transparent}
+.md-show.md-effect-12 .md-content{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);transform:scale(1);opacity:1}
+/* Effect 13: 3D slit */
+.md-effect-13.md-modal{-webkit-perspective:1300px;-moz-perspective:1300px;perspective:1300px}
+.md-effect-13 .md-content{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:translateZ(-3000px) rotateY(90deg);-moz-transform:translateZ(-3000px) rotateY(90deg);-ms-transform:translateZ(-3000px) rotateY(90deg);transform:translateZ(-3000px) rotateY(90deg);opacity:0}
+.md-show.md-effect-13 .md-content{-webkit-animation:slit .7s forwards ease-out;-moz-animation:slit .7s forwards ease-out;animation:slit .7s forwards ease-out}
+@-webkit-keyframes slit { 50%{-webkit-transform:translateZ(-250px) rotateY(89deg);opacity:.5;-webkit-animation-timing-function:ease-out} 100%{-webkit-transform:translateZ(0) rotateY(0deg);opacity:1} }
+@-moz-keyframes slit { 50%{-moz-transform:translateZ(-250px) rotateY(89deg);opacity:.5;-moz-animation-timing-function:ease-out} 100%{-moz-transform:translateZ(0) rotateY(0deg);opacity:1} }
+@keyframes slit { 50%{transform:translateZ(-250px) rotateY(89deg);opacity:1;animation-timing-function:ease-in} 100%{transform:translateZ(0) rotateY(0deg);opacity:1} }
+/* Effect 14:  3D Rotate from bottom */
+.md-effect-14.md-modal{-webkit-perspective:1300px;-moz-perspective:1300px;perspective:1300px}
+.md-effect-14 .md-content{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:translateY(100%) rotateX(90deg);-moz-transform:translateY(100%) rotateX(90deg);-ms-transform:translateY(100%) rotateX(90deg);transform:translateY(100%) rotateX(90deg);-webkit-transform-origin:0 100%;-moz-transform-origin:0 100%;transform-origin:0 100%;opacity:0;-webkit-transition:all .3s ease-out;-moz-transition:all .3s ease-out;transition:all .3s ease-out}
+.md-show.md-effect-14 .md-content{-webkit-transform:translateY(0%) rotateX(0deg);-moz-transform:translateY(0%) rotateX(0deg);-ms-transform:translateY(0%) rotateX(0deg);transform:translateY(0%) rotateX(0deg);opacity:1}
+/* Effect 15:  3D Rotate in from left */
+.md-effect-15.md-modal{-webkit-perspective:1300px;-moz-perspective:1300px;perspective:1300px}
+.md-effect-15 .md-content{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform:translateZ(100px) translateX(-30%) rotateY(90deg);-moz-transform:translateZ(100px) translateX(-30%) rotateY(90deg);-ms-transform:translateZ(100px) translateX(-30%) rotateY(90deg);transform:translateZ(100px) translateX(-30%) rotateY(90deg);-webkit-transform-origin:0 100%;-moz-transform-origin:0 100%;transform-origin:0 100%;opacity:0;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s}
+.md-show.md-effect-15 .md-content{-webkit-transform:translateZ(0px) translateX(0%) rotateY(0deg);-moz-transform:translateZ(0px) translateX(0%) rotateY(0deg);-ms-transform:translateZ(0px) translateX(0%) rotateY(0deg);transform:translateZ(0px) translateX(0%) rotateY(0deg);opacity:1}
+/* Effect 16:  Blur */
+.md-show.md-effect-16 ~ .md-overlay{background:rgba(0,0,0,0.8)}
+.md-show.md-effect-16 ~ #wrapper{-webkit-filter:blur(3px);-moz-filter:blur(3px);filter:blur(3px)}
+.md-effect-16 .md-content{-webkit-transform:translateY(-5%);-moz-transform:translateY(-5%);-ms-transform:translateY(-5%);transform:translateY(-5%);opacity:0}
+.md-show.md-effect-16 ~ #wrapper,.md-effect-16 .md-content{-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s}
+.md-show.md-effect-16 .md-content{-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0);opacity:1}
+/* Effect 17:  Slide in from bottom with perspective on wrapper */
+.md-show.md-effect-17 ~ #wrapper{height:100%;overflow:hidden;-webkit-transition:0 .3s;-moz-transition:0 .3s;transition:transform .3s}
+.md-show.md-effect-17 ~ #wrapper,.md-show.md-effect-17 ~ .md-overlay{-webkit-transform:rotateX(-2deg);-moz-transform:rotateX(-2deg);-ms-transform:rotateX(-2deg);transform:rotateX(-2deg);-webkit-transform-origin:50% 0;-moz-transform-origin:50% 0;transform-origin:50% 0;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;transform-style:preserve-3d}
+.md-effect-17 .md-content{opacity:0;-webkit-transform:translateY(200%);-moz-transform:translateY(200%);-ms-transform:translateY(200%);transform:translateY(200%)}
+.md-show.md-effect-17 .md-content{-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0);opacity:1;-webkit-transition:all .3s .2s;-moz-transition:all .3s .2s;transition:all .3s .2s}
+/* Effect 18:  Slide from right with perspective on wrapper */
+.md-show.md-effect-18 ~ #wrapper{height:100%;overflow:hidden}
+.md-show.md-effect-18 ~ .md-overlay{background:rgba(26,188,156,0.8);-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s}
+.md-show.md-effect-18 ~ #wrapper,.md-show.md-effect-18 ~ .md-overlay{-webkit-transform-style:preserve-3d;-webkit-transform-origin:0 50%;-webkit-animation:rotateRightSideFirst .5s forwards ease-in;-moz-transform-style:preserve-3d;-moz-transform-origin:0 50%;-moz-animation:rotateRightSideFirst .5s forwards ease-in;transform-style:preserve-3d;transform-origin:0 50%;animation:rotateRightSideFirst .5s forwards ease-in}
+@-webkit-keyframes rotateRightSideFirst { 50%{-webkit-transform:translateZ(-50px) rotateY(5deg);-webkit-animation-timing-function:ease-out} 100%{-webkit-transform:translateZ(-200px)} }
+@-moz-keyframes rotateRightSideFirst { 50%{-moz-transform:translateZ(-50px) rotateY(5deg);-moz-animation-timing-function:ease-out} 100%{-moz-transform:translateZ(-200px)} }
+@keyframes rotateRightSideFirst { 50%{transform:translateZ(-50px) rotateY(5deg);animation-timing-function:ease-out} 100%{transform:translateZ(-200px)} }
+.md-effect-18 .md-content{-webkit-transform:translateX(200%);-moz-transform:translateX(200%);-ms-transform:translateX(200%);transform:translateX(200%);opacity:0}
+.md-show.md-effect-18 .md-content{-webkit-transform:translateX(0);-moz-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);opacity:1;-webkit-transition:all .5s .1s;-moz-transition:all .5s .1s;transition:all .5s .1s}
+/* Effect 19:  Slip in from the top with perspective on wrapper */
+.md-show.md-effect-19 ~ #wrapper{height:100%;overflow:hidden}
+.md-show.md-effect-19 ~ .md-overlay{-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s}
+.md-show.md-effect-19 ~ #wrapper,.md-show.md-effect-19 ~ .md-overlay{-webkit-transform-style:preserve-3d;-webkit-transform-origin:50% 100%;-webkit-animation:OpenTop .5s forwards ease-in;-moz-transform-style:preserve-3d;-moz-transform-origin:50% 100%;-moz-animation:OpenTop .5s forwards ease-in;transform-style:preserve-3d;transform-origin:50% 100%;animation:OpenTop .5s forwards ease-in}
+@-webkit-keyframes OpenTop { 50%{-webkit-transform:rotateX(10deg);-webkit-animation-timing-function:ease-out} }
+@-moz-keyframes OpenTop { 50%{-moz-transform:rotateX(10deg);-moz-animation-timing-function:ease-out} }
+@keyframes OpenTop { 50%{transform:rotateX(10deg);animation-timing-function:ease-out} }
+.md-effect-19 .md-content{-webkit-transform:translateY(-200%);-moz-transform:translateY(-200%);-ms-transform:translateY(-200%);transform:translateY(-200%);opacity:0}
+.md-show.md-effect-19 .md-content{-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0);opacity:1;-webkit-transition:all .5s .1s;-moz-transition:all .5s .1s;transition:all .5s .1s}
+</style>
+<style>
+@media only screen and (min-width:768px) and (max-width:989px) { #wrapper {width:730px; margin:0 auto } }
+@media only screen and (max-width:767px) { #wrapper {width:540px; margin:0 auto } }
+@media only screen and (max-width: 580px) { #wrapper { width: 500px } }
+@media only screen and (max-width: 490px) { #wrapper { width: 430px } }
+@media only screen and (max-width: 479px) { #wrapper { width: 280px } }
+@media screen and (max-width: 260px) { #wrapper { width: 210px } }
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="md-modal md-effect-1" id="modal-1">
+	<div class="md-content">
+		<h3>Example Modal Dialog <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>This Is Example Modal Dialog:</p>
+			<ul>
+				<li><strong>Example:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+				<li><strong>Modal:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+				<li><strong>Dialog:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-2" id="modal-2">
+	<div class="md-content">
+		<h3>Example Contact Form <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<form name='contact-form'>
+			<input name='name' placeholder='Nama' size='30' type='text' value='' />
+			<input name='email' placeholder='Email' size='30' type='text' value='' />
+			<textarea cols='25' name='email-message' placeholder='Pesan' rows='5'></textarea>
+			<input type='button' value='Submit' />
+			</form>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-3" id="modal-3">
+	<div class="md-content">
+		<h3>Example Login <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<form name='contact-form'>
+			<input size='30' type='text' value="alamat@email.com" onBlur="if(this.value=='')this.value='alamat@email.com'" onFocus="if(this.value=='alamat@email.com')this.value=''"/>
+			<input size='30' type='password' value='password'  onBlur="if(this.value=='')this.value='password'" onFocus="if(this.value=='password')this.value=''"/>
+			<input type='button' value='Sign In' />
+			</form>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-4" id="modal-4">
+	<div class="md-content">
+		<h3>Example Quote of the Day <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>Tak selalu orang pintar mendapatkan yang terbaik. orang yang mempunyai kegigihan membaca, orang yang terus bertahan dan tak pernah menyerahlah yang mencapai sukses.</p>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-5" id="modal-5">
+	<div class="md-content">
+		<h3>Example Modal Dialog <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-6" id="modal-6">
+	<div class="md-content">
+		<h3>Example Modal Dialog</h3>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+			<button class="md-close">Close</button>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-7" id="modal-7">
+	<div class="md-content">
+		<h3>Example Modal Dialog <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>This Is Example Modal Dialog:</p>
+			<ul>
+				<li><strong>Example:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+				<li><strong>Modal:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+				<li><strong>Dialog:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-8" id="modal-8">
+	<div class="md-content">
+		<h3>Example Contact Form <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<form name='contact-form'>
+			<input name='name' placeholder='Nama' size='30' type='text' value='' />
+			<input name='email' placeholder='Email' size='30' type='text' value='' />
+			<textarea cols='25' name='email-message' placeholder='Pesan' rows='5'></textarea>
+			<input type='button' value='Submit' />
+			</form>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-9" id="modal-9">
+	<div class="md-content">
+		<h3>Example Login <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<form name='contact-form'>
+			<input size='30' type='text' value="alamat@email.com" onBlur="if(this.value=='')this.value='alamat@email.com'" onFocus="if(this.value=='alamat@email.com')this.value=''"/>
+			<input size='30' type='password' value='password'  onBlur="if(this.value=='')this.value='password'" onFocus="if(this.value=='password')this.value=''"/>
+			<input type='button' value='Sign In' />
+			</form>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-10" id="modal-10">
+	<div class="md-content">
+		<h3>Example Quote of the Day <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>Tak selalu orang pintar mendapatkan yang terbaik. orang yang mempunyai kegigihan membaca, orang yang terus bertahan dan tak pernah menyerahlah yang mencapai sukses.</p>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-11" id="modal-11">
+	<div class="md-content">
+		<h3>Example Modal Dialog <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-12" id="modal-12">
+	<div class="md-content">
+		<h3>Example Modal Dialog</h3>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+			<button class="md-close">Close</button>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-13" id="modal-13">
+	<div class="md-content">
+		<h3>Example Modal Dialog <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>This Is Example Modal Dialog:</p>
+			<ul>
+				<li><strong>Example:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+				<li><strong>Modal:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+				<li><strong>Dialog:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-14" id="modal-14">
+	<div class="md-content">
+		<h3>Example Contact Form <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<form name='contact-form'>
+			<input name='name' placeholder='Nama' size='30' type='text' value='' />
+			<input name='email' placeholder='Email' size='30' type='text' value='' />
+			<textarea cols='25' name='email-message' placeholder='Pesan' rows='5'></textarea>
+			<input type='button' value='Submit' />
+			</form>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-15" id="modal-15">
+	<div class="md-content">
+		<h3>Example Login <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<form name='contact-form'>
+			<input size='30' type='text' value="alamat@email.com" onBlur="if(this.value=='')this.value='alamat@email.com'" onFocus="if(this.value=='alamat@email.com')this.value=''"/>
+			<input size='30' type='password' value='password'  onBlur="if(this.value=='')this.value='password'" onFocus="if(this.value=='password')this.value=''"/>
+			<input type='button' value='Sign In' />
+			</form>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-16" id="modal-16">
+	<div class="md-content">
+		<h3>Example Quote of the Day <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>Tak selalu orang pintar mendapatkan yang terbaik. orang yang mempunyai kegigihan membaca, orang yang terus bertahan dan tak pernah menyerahlah yang mencapai sukses.</p>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-17" id="modal-17">
+	<div class="md-content">
+		<h3>Example Modal Dialog <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-18" id="modal-18">
+	<div class="md-content">
+		<h3>Example Modal Dialog</h3>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+			<button class="md-close">Close</button>
+		</div>
+	</div>
+</div>
+<div class="md-modal md-effect-19" id="modal-19">
+	<div class="md-content">
+		<h3>Example Modal Dialog <a class="md-close" title="Close">&#215;</a></h3>
+		<div>
+			<p>This Is Example Modal Dialog:</p>
+			<ul>
+				<li><strong>Example:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+				<li><strong>Modal:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+				<li><strong>Dialog:</strong> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="wrapper">
+<div id="header">
+<h1>Example Modal Dialog</h1>
+</div>
+
+<div id="container">
+<h2>Effect 1 - Fade in &amp; Scale</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-1&quot; id=&quot;modal-1&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Modal Dialog &lt;a class=&quot;md-close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;This Is Example Modal Dialog:&lt;/p&gt;
+			&lt;ul&gt;
+				&lt;li&gt;&lt;strong&gt;Example:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;Modal:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;Dialog:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+			&lt;/ul&gt;
+			
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-1">demo</button>
+
+
+<h2>Effect 2 - Slide in (right)</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-2&quot; id=&quot;modal-2&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Contact Form &lt;a class=&quot;md-close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;form name='contact-form'&gt;
+			&lt;input name='name' placeholder='Nama' size='30' type='text' value='' /&gt;
+			&lt;input name='email' placeholder='Email' size='30' type='text' value='' /&gt;
+			&lt;textarea cols='25' name='email-message' placeholder='Pesan' rows='5'&gt;&lt;/textarea&gt;
+			&lt;input type='button' value='Submit' /&gt;
+			&lt;/form&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-2">demo</button>
+
+
+<h2>Effect 3 - Slide in (bottom)</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-3&quot; id=&quot;modal-3&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Login &lt;a class=&quot;md-close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;form name='contact-form'&gt;
+			&lt;input size='30' type='text' value=&quot;alamat@email.com&quot; onBlur=&quot;if(this.value=='')this.value='alamat@email.com'&quot; onFocus=&quot;if(this.value=='alamat@email.com')this.value=''&quot;/&gt;
+			&lt;input size='30' type='password' value='password'  onBlur=&quot;if(this.value=='')this.value='password'&quot; onFocus=&quot;if(this.value=='password')this.value=''&quot;/&gt;
+			&lt;input type='button' value='Sign In' /&gt;
+			&lt;/form&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-3">demo</button>
+
+
+<h2>Effect 4 - Newspaper</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-4&quot; id=&quot;modal-4&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Quote of the Day &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;Tak selalu orang pintar mendapatkan yang terbaik. orang yang mempunyai kegigihan membaca, orang yang terus bertahan dan tak pernah menyerahlah yang mencapai sukses.&lt;/p&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-4">demo</button>
+
+
+<h2>Effect 5 - Fall</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-5&quot; id=&quot;modal-5&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Modal Dialog &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.&lt;/p&gt;
+			&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.&lt;/p&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-5">demo</button>
+
+
+<h2>Effect 6 - Side Fall</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-6&quot; id=&quot;modal-6&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Modal Dialog&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.&lt;/p&gt;
+			&lt;button class=&quot;md-close&quot;&gt;Close&lt;/button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-6">demo</button>
+
+
+<h2>Effect 7 - Sticky Up</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-7&quot; id=&quot;modal-7&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Modal Dialog &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;This Is Example Modal Dialog:&lt;/p&gt;
+			&lt;ul&gt;
+				&lt;li&gt;&lt;strong&gt;Example:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;Modal:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;Dialog:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-7">demo</button>
+
+
+<h2>Effect 8 - 3D Flip (horizontal)</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-8&quot; id=&quot;modal-8&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Contact Form &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;form name='contact-form'&gt;
+			&lt;input name='name' placeholder='Nama' size='30' type='text' value='' /&gt;
+			&lt;input name='email' placeholder='Email' size='30' type='text' value='' /&gt;
+			&lt;textarea cols='25' name='email-message' placeholder='Pesan' rows='5'&gt;&lt;/textarea&gt;
+			&lt;input type='button' value='Submit' /&gt;
+			&lt;/form&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-8">demo</button>
+
+
+<h2>Effect 9 - 3D Flip (vertical)</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-9&quot; id=&quot;modal-9&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Login &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;form name='contact-form'&gt;
+			&lt;input size='30' type='text' value=&quot;alamat@email.com&quot; onBlur=&quot;if(this.value=='')this.value='alamat@email.com'&quot; onFocus=&quot;if(this.value=='alamat@email.com')this.value=''&quot;/&gt;
+			&lt;input size='30' type='password' value='password'  onBlur=&quot;if(this.value=='')this.value='password'&quot; onFocus=&quot;if(this.value=='password')this.value=''&quot;/&gt;
+			&lt;input type='button' value='Sign In' /&gt;
+			&lt;/form&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-9">demo</button>
+
+
+<h2>Effect 10 - 3D Sign</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-10&quot; id=&quot;modal-10&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Quote of the Day &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;Tak selalu orang pintar mendapatkan yang terbaik. orang yang mempunyai kegigihan membaca, orang yang terus bertahan dan tak pernah menyerahlah yang mencapai sukses.&lt;/p&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-10">demo</button>
+
+
+<h2>Effect 11 - Super Scaled</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-11&quot; id=&quot;modal-11&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Modal Dialog &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.&lt;/p&gt;
+			&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.&lt;/p&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-11">demo</button>
+
+
+<h2>Effect 12 - Just Me</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-12&quot; id=&quot;modal-12&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Modal Dialog&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.&lt;/p&gt;
+			&lt;button class=&quot;md-close&quot;&gt;Close&lt;/button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-12">demo</button>
+
+
+<h2>Effect 13 - 3D Slit</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-13&quot; id=&quot;modal-13&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Modal Dialog &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;This Is Example Modal Dialog:&lt;/p&gt;
+			&lt;ul&gt;
+				&lt;li&gt;&lt;strong&gt;Example:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;Modal:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;Dialog:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-13">demo</button>
+
+
+<h2>Effect 14 - 3D Rotate Bottom</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-14&quot; id=&quot;modal-14&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Contact Form &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;form name='contact-form'&gt;
+			&lt;input name='name' placeholder='Nama' size='30' type='text' value='' /&gt;
+			&lt;input name='email' placeholder='Email' size='30' type='text' value='' /&gt;
+			&lt;textarea cols='25' name='email-message' placeholder='Pesan' rows='5'&gt;&lt;/textarea&gt;
+			&lt;input type='button' value='Submit' /&gt;
+			&lt;/form&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-14">demo</button>
+
+
+<h2>Effect 15 - 3D Rotate In Left</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-15&quot; id=&quot;modal-15&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Login &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;form name='contact-form'&gt;
+			&lt;input size='30' type='text' value=&quot;alamat@email.com&quot; onBlur=&quot;if(this.value=='')this.value='alamat@email.com'&quot; onFocus=&quot;if(this.value=='alamat@email.com')this.value=''&quot;/&gt;
+			&lt;input size='30' type='password' value='password'  onBlur=&quot;if(this.value=='')this.value='password'&quot; onFocus=&quot;if(this.value=='password')this.value=''&quot;/&gt;
+			&lt;input type='button' value='Sign In' /&gt;
+			&lt;/form&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-15">demo</button>
+
+
+<h2>Effect 16 - Blur</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-16&quot; id=&quot;modal-16&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Quote of the Day &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;Tak selalu orang pintar mendapatkan yang terbaik. orang yang mempunyai kegigihan membaca, orang yang terus bertahan dan tak pernah menyerahlah yang mencapai sukses.&lt;/p&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger" data-modal="modal-16">demo</button>
+
+
+<h2>Effect 17 - Let me in</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-17&quot; id=&quot;modal-17&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Modal Dialog &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.&lt;/p&gt;
+			&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.&lt;/p&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger md-setperspective" data-modal="modal-17">demo</button>
+
+
+<h2>Effect 18 - Make way!</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-18&quot; id=&quot;modal-18&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Modal Dialog&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.&lt;/p&gt;
+			&lt;button class=&quot;md-close&quot;&gt;Close&lt;/button&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger md-setperspective" data-modal="modal-18">demo</button>
+
+
+<h2>Effect 19 - Slip from top</h2>
+<pre data-codetype="HTML">
+&lt;div class=&quot;md-modal md-effect-19&quot; id=&quot;modal-19&quot;&gt;
+	&lt;div class=&quot;md-content&quot;&gt;
+		&lt;h3&gt;Example Modal Dialog &lt;a class=&quot;md-close&quot; title=&quot;Close&quot;&gt;&amp;#215;&lt;/a&gt;&lt;/h3&gt;
+		&lt;div&gt;
+			&lt;p&gt;This Is Example Modal Dialog:&lt;/p&gt;
+			&lt;ul&gt;
+				&lt;li&gt;&lt;strong&gt;Example:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;Modal:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;Dialog:&lt;/strong&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<button class="md-trigger md-setperspective" data-modal="modal-19">demo</button>
+
+
+</div>
+<div id="footer">
+<div class="left"><p><a href="http://mas-andes.blogspot.com/2014/01/membuat-efek-jquery-modal-dialog.html">Back to Tutorial</a></p></div>
+<div class="right"><p><a href="#">Back to Top</a></p></div>
+</div>
+
+</div>
+<div class="md-overlay"></div>
+
+
+<script type='text/javascript'>
+//<![CDATA[
+var ModalEffects=(function(){function init(){var overlay=document.querySelector('.md-overlay');[].slice.call(document.querySelectorAll('.md-trigger')).forEach(function(el,i){var modal=document.querySelector('#'+el.getAttribute('data-modal')),close=modal.querySelector('.md-close');function removeModal(hasPerspective){classie.remove(modal,'md-show');if(hasPerspective){classie.remove(document.documentElement,'md-perspective')}}function removeModalHandler(){removeModal(classie.has(el,'md-setperspective'))}el.addEventListener('click',function(ev){classie.add(modal,'md-show');overlay.removeEventListener('click',removeModalHandler);overlay.addEventListener('click',removeModalHandler);if(classie.has(el,'md-setperspective')){setTimeout(function(){classie.add(document.documentElement,'md-perspective')},25)}});close.addEventListener('click',function(ev){ev.stopPropagation();removeModalHandler()})})}init()})();
+(function(window){'use strict';function classReg(className){return new RegExp("(^|\\s+)"+className+"(\\s+|$)")}var hasClass,addClass,removeClass;if('classList'in document.documentElement){hasClass=function(elem,c){return elem.classList.contains(c)};addClass=function(elem,c){elem.classList.add(c)};removeClass=function(elem,c){elem.classList.remove(c)}}else{hasClass=function(elem,c){return classReg(c).test(elem.className)};addClass=function(elem,c){if(!hasClass(elem,c)){elem.className=elem.className+' '+c}};removeClass=function(elem,c){elem.className=elem.className.replace(classReg(c),' ')}}function toggleClass(elem,c){var fn=hasClass(elem,c)?removeClass:addClass;fn(elem,c)}var classie={hasClass:hasClass,addClass:addClass,removeClass:removeClass,toggleClass:toggleClass,has:hasClass,add:addClass,remove:removeClass,toggle:toggleClass};if(typeof define==='function'&&define.amd){define(classie)}else{window.classie=classie}})(window);
+//]]>
+</script>
+<script type='text/javascript'>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-29313206-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>
