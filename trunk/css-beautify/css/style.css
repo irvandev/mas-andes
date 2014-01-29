@@ -5,12 +5,14 @@ body{font-family:Arial, Helvetica, sans-serif;font-size:100%;color:#333;width:10
 a{color:#39b9d6;outline:none}
 .wrapper{width:100%;overflow:hidden;position:relative}
 p{margin-bottom:18px}
-.row-top{width:100%;height:100px;background:#131313;overflow:hidden}
-h1{line-height:100px;padding:0;font-size:48px;font-weight:400;position:relative;font-family:Impact,Times New Roman}
+.row-top{width:100%;height:100px;background:#222;overflow:hidden;border-bottom:5px solid #ff0}
+h1{position:relative;line-height:100px;padding:0;font-size:48px;font-weight:400;position:relative;font-family:Impact,Times New Roman}
 h1 a{transition:all .5s ease-in-out}
 h1 i{vertical-align:middle;margin-top:-10px}
+h1 span{color:#ff0;font-family:Impact, Monaco, Lucida Console, monospace}
+h1 .logo{position:absolute;right:20px!important;top:0;float:right;letter-spacing:-5px}
 h1 a:hover{color:#fff}
-.menu-row{width:100%;background:url(../images/menu-row-tail.gif) center top repeat-x #178fbe}
+.menu-row{width:100%;background:url(../images/menu-row-tail.gif) center top repeat-x #178fbe;border-bottom:5px solid #ccc}
 .menu-bg{width:100%;background:url(../images/menu-bg.jpg) center top no-repeat;box-shadow:0 0 10px #333}
 .menu{background:url(../images/menu-spacer.gif) left top no-repeat;padding:0}
 .menu li{float:left;position:relative;background:url(../images/menu-spacer.gif) right top no-repeat;padding-right:2px}
@@ -30,7 +32,7 @@ textarea{font-family:Inconsolata, Monaco, Consolas, "Lucida Console", monospace;
 .container{width:960px;margin:20px auto 0}
 .container .raw textarea{box-shadow:inset 0 1px 3px rgba(0,0,0,0.2);-webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,0.2);-moz-box-shadow:inset 0 1px 3px rgba(0,0,0,0.2);transition:border linear .25s box-shadow linear .25s;-webkit-transition:border linear .25s box-shadow linear .25s;-moz-transition:border linear .25s box-shadow linear .25s;-o-transition:border linear .25s box-shadow linear .25s}
 .container .raw textarea:focus{box-shadow:inset 0 1px 3px rgba(0,0,0,0.1), 0 0 8px rgba(60,200,1,0.4);-webkit-box-shadow:inset 0 1px 3px rgba(0,0,0,0.1), 0 0 8px rgba(60,200,1,0.4);-moz-box-shadow:inset 0 1px 3px rgba(0,0,0,0.1), 0 0 8px rgba(60,200,1,0.4);border-color:rgba(60,200,1,0.8)}
-.container .options{width:140px;display:inline;float:left;margin-right:10px;font-size:13px}
+.container .options{width:170px;display:inline;float:left;margin-right:10px;font-size:13px}
 .container .options input{margin:5px 5px 5px 0}
 .CodeMirror{border:1px solid #bbb;background:#fff;padding:0}
 .CodeMirror-scroll{height:320px}
@@ -38,3 +40,7 @@ html,.row-bot{width:100%}
 a:hover,.menu li a,.list-1 li a,.list-2 li a,.link,.button,h1 a{text-decoration:none}
 .menu li.active a,.menu > li > a:hover,h6,.container .formatted textarea{color:#000}
 .container .raw,.container .formatted{width:380px;display:inline;float:left;margin-right:10px}
+.options .pilihan{background:#249FC7;color:#fff;padding:10px}
+.options .kredit{background:#222;color:#fff;padding:10px;border-bottom:25px solid #249FC7}
+.options input{cursor:pointer}
+.options a{text-decoration:none}
