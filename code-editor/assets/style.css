@@ -2,14 +2,17 @@
 html{height:100%}
 .bersih{clear:both}
 a:link,a:hover,a:visited{text-decoration:none;color:#888}
+button{border:none;background:#c0392b;color:#fff;font-family:'Yanone Kaffeesatz',sans-serif;font-size:14px;cursor:pointer;display:inline-block;border-radius:2px;padding:.6em 1.2em}
+button:hover{background:#A5281B}
 i{color:#FF4500;text-shadow:none}
 .background{background:#222;position:relative}
-#judul{font-size:45px;font-weight:400;text-shadow:.04em .04em #000, .08em .08em #1ba29a;font-family:Impact, Monaco, Lucida Console, monospace;display:inline-block;line-height:63px;transition:all .5s ease-in-out;padding:0 0 0 40px}
+#judul{font-size:45px;color:#999;font-weight:400;text-shadow:.04em .04em #000, .08em .08em #1ba29a;font-family:Impact, Monaco, Lucida Console, monospace;display:inline-block;line-height:63px;transition:all .5s ease-in-out;padding:0 0 0 40px}
 #judul span{position:absolute;color:#d00;top:0;right:20px;font-family:Impact, Monaco, Lucida Console, monospace}
 #judul:hover{color:#fff}
 #alat{border-top:1px solid #000;border-bottom:1px solid #222;box-shadow:0 5px 10px -7px rgba(0,0,0,.3),0 1px 0 0 #333 inset;height:30px;padding:10px 0 10px 50px}
-#code,#demo{width:50%;float:left}
+#code,#demo{width:50%;float:left;position:relative}
 #alat h2{font-weight:400;color:#888;line-height:35px;display:inline-block;font-family:tahoma}
+#code #reload{float:right;position:absolute;right:10%}
 #ide{position:absolute;top:115px;left:0;right:0;bottom:0;border-bottom:10px solid #222;background:#fff}
 #editor,#preview{width:50%;float:left;height:100%;position:relative}
 .lebar{height:100%;position:absolute;top:0;left:0;right:0;bottom:0;border-right:10px solid #222}
