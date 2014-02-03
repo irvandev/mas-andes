@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href='https://plus.google.com/104093787575230359634' rel='author'/>
+<meta content='eX4aetTb1bRMfPFenBkl0DNG0nVF8c4j_EAsagbcrXE' name='google-site-verification'/>
+<meta content='CED76A8C706DF43769EF018E0DAE616A' name='msvalidate.01'/>
+<title>Tool Coding Editor - Toggle</title>
+<meta content='Tool Coding Editor | Blog Mas Andes' name='description'/>
+<meta content='tool code editor, virtual code editor, online code editor, virtual code online' name='keywords'/>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/codemirror.css">
+<link rel="stylesheet" href="assets/simple-hint.css">	
+<link rel="stylesheet" href="font-awesome-4.0.3/css/font-awesome.min.css">	
+<link rel="stylesheet" href="assets/googlecode.css">	
+<script type="text/javascript" src="assets/codemirror.js"></script>
+<script type="text/javascript" src="assets/javascript.js"></script>
+<script type="text/javascript" src="assets/css.js"></script>
+<script type="text/javascript" src="assets/xml.js"></script>
+<script type="text/javascript" src="assets/htmlmixed.js"></script>
+<script type="text/javascript" src="assets/simple-hint.js"></script>
+<script type="text/javascript" src="assets/zen_codemirror.js"></script>
+<script type="text/javascript" src="assets/swfobject.js"></script>
+<script type="text/javascript" src="assets/highlight.pack.js"></script>
+</head>
+<body>
+<div class="background">
+<h1><a href="index.html" title="Tool Coding Editor - Blog Mas Andes" id="judul"><i class="fa fa-cog fa-spin"></i> Tool Coding Editor <span>BMA</span></a></h1>
+<div id="alat">
+<div id="code">
+<h2><i class="fa fa-code"></i> Source Code:</h2>
+</div>
+<div id="demo">
+<h2><i class="fa fa-laptop"></i> Result:</h2>
+</div>
+</div>
+<div class="bersih"></div>
+</div>
+<div id="ide">
+<div id="editor">
+<div class="lebar">
+<textarea name="" id="editor-area" cols="30" rows="10">
+&lt;style type='text/css'&gt;
+#btn1{
+padding:5px 15px;
+background:#2ecc71;
+color:#fff;
+border:none;
+cursor:pointer;
+display:inline-block
+}
+#contoh1{
+display:none;
+text-align:center;
+background:#2ecc71;
+color:#fff;
+padding:50px 0
+}
+&lt;/style&gt;
+&lt;script src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'/&gt;
+&lt;script type='text/javascript'&gt;
+$(document).ready(function(){
+  $("#btn1").click(function(){
+    $("#contoh1").toggle();
+  });
+});
+&lt;/script&gt;
+&lt;button id='btn1'&gt;Toggle&lt;/button&gt;
+&lt;div id='contoh1'&gt;Contoh penggunaan jQuery toggle&lt;/div&gt;
+
+</textarea>
+</div>
+</div>
+<div id="preview">
+<div class="lebar">
+<iframe src frameborder="0" id="preview-area"></iframe>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+var delay;var editor=CodeMirror.fromTextArea(document.getElementById('editor-area'),{mode:'text/html',tabSize:4,indentUnit:4,matchBrackets:true,lineNumbers:true,onChange:function(){clearTimeout(delay);delay=setTimeout(updatePreview,300)},onKeyEvent:function(){return zen_editor.handleKeyEvent.apply(zen_editor,arguments)}});function updatePreview(){var previewFrame=document.getElementById('preview-area');var preview=previewFrame.contentDocument||previewFrame.contentWindow.document;preview.open();preview.write(editor.getValue());preview.close()}setTimeout(updatePreview,300);
+</script>
+<script type='text/javascript'>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-29313206-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>
